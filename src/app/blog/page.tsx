@@ -1,62 +1,30 @@
 import React from 'react';
 import styles from './page.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import UrlButton from '@/components/urlButton/UrlButton';
+import {notFound} from 'next/navigation';
+import {BlogPostCompact} from '@/components/blogPostCompact/BlogPostCompact';
+import {BlogPost} from '@/types/types';
 
-function Blog() {
+async function getPosts() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+    cache: 'no-store',
+  });
+  if (!res.ok) {
+    return notFound();
+  }
+
+  return res.json();
+}
+
+const Blog = async () => {
+  const posts: BlogPost[] = await getPosts();
+
   return (
     <div className={styles.container}>
-      <Link href={'/blog/blogId1'} className={styles.link}>
-        <div className={styles.imageContent}>
-          <Image
-            src={
-              'https://images.pexels.com/photos/3130810/pexels-photo-3130810.jpeg'
-            }
-            alt=''
-            width={400}
-            height={250}
-            className={styles.image}
-          />
-        </div>
-        <div className={styles.textContent}>
-          <h2 className={styles.title}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h2>
-          <p className={styles.description}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            vel tenetur necessitatibus unde natus perspiciatis, amet cupiditate
-            ducimus possimus, eaque ex autem id nobis eum dolorem. Neque eveniet
-            fugiat tenetur?
-          </p>
-        </div>
-      </Link>
-      <Link href={'/blog/blogId2'} className={styles.link}>
-        <div className={styles.imageContent}>
-          <Image
-            src={
-              'https://images.pexels.com/photos/3130810/pexels-photo-3130810.jpeg'
-            }
-            alt=''
-            width={400}
-            height={250}
-            className={styles.image}
-          />
-        </div>
-        <div className={styles.textContent}>
-          <h2 className={styles.title}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h2>
-          <p className={styles.description}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            vel tenetur necessitatibus unde natus perspiciatis, amet cupiditate
-            ducimus possimus, eaque ex autem id nobis eum dolorem. Neque eveniet
-            fugiat tenetur?
-          </p>
-        </div>
-      </Link>
+      {posts?.map((post) => {
+        return <BlogPostCompact key={post.id} blogPost={post} />;
+      })}
     </div>
   );
-}
+};
 
 export default Blog;

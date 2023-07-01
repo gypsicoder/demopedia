@@ -1,22 +1,36 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
 
 import styles from './page.module.css';
+import {notFound, useParams} from 'next/navigation';
+import {BlogPost} from '@/types/types';
 
-function BlogPost() {
+async function getPost(postId: string) {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`,
+    {
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) {
+    return notFound();
+  }
+
+  return res.json();
+}
+
+const BlogPost = async ({}: {}) => {
+  const params = useParams();
+
+  const post: BlogPost = await getPost(params?.id);
+
   return (
     <div className={styles.container}>
       <div className={styles.topContent}>
         <div className={styles.infoContainer}>
-          <h1 className={styles.title}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h1>
-          <p className={styles.description}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur
-            vel tenetur necessitatibus unde natus perspiciatis, amet cupiditate
-            ducimus possimus, eaque ex autem id nobis eum dolorem. Neque eveniet
-            fugiat tenetur?
-          </p>
+          <h1 className={styles.title}>{post?.title}</h1>
+          <p className={styles.description}>{post?.body}</p>
           <div className={styles.userInfo}>
             <Image
               alt=''
@@ -55,6 +69,6 @@ function BlogPost() {
       </div>
     </div>
   );
-}
+};
 
 export default BlogPost;
