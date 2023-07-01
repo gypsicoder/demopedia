@@ -1,36 +1,43 @@
-'use client';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Image from 'next/image';
+import {Metadata, ResolvingMetadata} from 'next';
+import {notFound} from 'next/navigation';
 
 import styles from './page.module.css';
-import {notFound, useParams} from 'next/navigation';
 import {IPost} from '@/types/types';
 import {API_END_POINT} from '@/app/configs/config';
 
-const BlogPost = () => {
-  const {id} = useParams();
-  const [isLoading, setIsLoading] = useState(true);
-  const [post, setPost] = useState<IPost | null>(null);
+type Props = {
+  params: {id: string};
+  searchParams: {[key: string]: string | string[] | undefined};
+};
 
-  const getPost = async (postId: string) => {
-    const url = `${API_END_POINT}/posts/${postId}`;
-    console.log({postId, url});
-    const res = await fetch(url);
-    if (!res.ok) {
-      setPost(null);
-      setIsLoading(false);
-    }
-    const _post = await res.json();
-    setPost(_post);
-    setIsLoading(false);
+const getPost = async (postId: string) => {
+  const url = `${API_END_POINT}/posts/${postId}`;
+  console.log({postId, url});
+  const res = await fetch(url);
+  if (!res.ok) {
+    return notFound();
+  }
+  const post = await res.json();
+  return post;
+};
+
+export async function generateMetadata(
+  {params}: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const id = params.id;
+
+  const post: IPost = await getPost(id);
+  return {
+    title: post.title,
+    description: post.desc,
   };
+}
 
-  useEffect(() => {
-    if (!id) return;
-    getPost(id);
-  }, [id]);
-
-  if (!post && !isLoading) return notFound();
+const BlogPost = async ({params, searchParams}: Props) => {
+  const post = await getPost(params.id);
 
   return (
     <div className={styles.container}>

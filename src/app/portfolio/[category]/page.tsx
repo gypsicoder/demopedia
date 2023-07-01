@@ -1,10 +1,16 @@
-'use client';
 import React from 'react';
+import {notFound} from 'next/navigation';
+import {Metadata, ResolvingMetadata} from 'next';
+
 import styles from './page.module.css';
-import {notFound, useParams} from 'next/navigation';
 import {items} from './data';
 import {PortfolioItem} from '@/components/portfolioItem/PortfolioItem';
 import {IPortfolioItem} from '@/types/types';
+
+type Props = {
+  params: {category: string};
+  searchParams: {[key: string]: string | string[] | undefined};
+};
 
 const getData = (category: string) => {
   const data = items[category];
@@ -12,8 +18,18 @@ const getData = (category: string) => {
   return data;
 };
 
-function Category() {
-  const params = useParams();
+export async function generateMetadata(
+  {params}: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const {category} = params;
+  return {
+    title: `Demopedia portfolio items: ${category}`,
+    description: `Portfolio items of ${category}`,
+  };
+}
+
+const Category = async ({params}: Props) => {
   const data = getData(params.category);
 
   return (
@@ -26,6 +42,6 @@ function Category() {
       })}
     </div>
   );
-}
+};
 
 export default Category;

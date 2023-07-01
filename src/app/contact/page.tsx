@@ -3,6 +3,12 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import UrlButton from '@/components/urlButton/UrlButton';
 
+export const metadata = {
+  title: 'Demopedia Contact Page',
+  description:
+    'This is the contact page of Demopedia which is a website showcasing projects and blog posts developed in NextJS 13',
+};
+
 function Contact() {
   return (
     <div className={styles.container}>
