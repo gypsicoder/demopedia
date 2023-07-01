@@ -1,29 +1,34 @@
 'use client';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Image from 'next/image';
 
 import styles from './page.module.css';
 import {notFound, useParams} from 'next/navigation';
 import {BlogPost} from '@/types/types';
 
-async function getPost(postId: string) {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${postId}`,
-    {
-      cache: 'no-store',
-    }
-  );
-  if (!res.ok) {
-    return notFound();
-  }
+const BlogPost = () => {
+  const {id} = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [post, setPost] = useState<BlogPost | null>(null);
 
-  return res.json();
-}
+  useEffect(() => {
+    if (!id) return;
+    const getPost = async (postId: string) => {
+      const res = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${postId}`
+      );
+      if (!res.ok) {
+        setPost(null);
+        setIsLoading(false);
+      }
+      const _post = await res.json();
+      setPost(_post);
+      setIsLoading(false);
+    };
+    getPost(id);
+  }, [id]);
 
-const BlogPost = async ({}: {}) => {
-  const params = useParams();
-
-  const post: BlogPost = await getPost(params?.id);
+  if (!post && !isLoading) return notFound();
 
   return (
     <div className={styles.container}>
