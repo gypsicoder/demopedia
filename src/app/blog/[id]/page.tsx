@@ -4,27 +4,29 @@ import Image from 'next/image';
 
 import styles from './page.module.css';
 import {notFound, useParams} from 'next/navigation';
-import {BlogPost} from '@/types/types';
+import {IPost} from '@/types/types';
+import {API_END_POINT} from '@/app/configs/config';
 
 const BlogPost = () => {
   const {id} = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [post, setPost] = useState<BlogPost | null>(null);
+  const [post, setPost] = useState<IPost | null>(null);
+
+  const getPost = async (postId: string) => {
+    const url = `${API_END_POINT}/posts/${postId}`;
+    console.log({postId, url});
+    const res = await fetch(url);
+    if (!res.ok) {
+      setPost(null);
+      setIsLoading(false);
+    }
+    const _post = await res.json();
+    setPost(_post);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     if (!id) return;
-    const getPost = async (postId: string) => {
-      const res = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${postId}`
-      );
-      if (!res.ok) {
-        setPost(null);
-        setIsLoading(false);
-      }
-      const _post = await res.json();
-      setPost(_post);
-      setIsLoading(false);
-    };
     getPost(id);
   }, [id]);
 
@@ -35,7 +37,7 @@ const BlogPost = () => {
       <div className={styles.topContent}>
         <div className={styles.infoContainer}>
           <h1 className={styles.title}>{post?.title}</h1>
-          <p className={styles.description}>{post?.body}</p>
+          <p className={styles.description}>{post?.desc}</p>
           <div className={styles.userInfo}>
             <Image
               alt=''
@@ -48,30 +50,17 @@ const BlogPost = () => {
           </div>
         </div>
         <div className={styles.imageContainer}>
-          <Image
-            src={
-              'https://images.pexels.com/photos/3130810/pexels-photo-3130810.jpeg'
-            }
-            alt=''
-            fill={true}
-            className={styles.image}
-          />
+          {(post?.image?.length || 0) > 0 && (
+            <Image
+              src={post!.image}
+              alt=''
+              fill={true}
+              className={styles.image}
+            />
+          )}
         </div>
       </div>
-      <div className={styles.bottomContent}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quae
-        dolor, optio voluptatibus magnam iure esse tempora beatae. A suscipit
-        eos. Animi quibusdam cum omnis officiis voluptatum quo ea eveniet? Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Ducimus quae dolor,
-        optio voluptatibus magnam iure esse tempora beatae, a suscipit eos.
-        Animi quibusdam cum omnis officiis
-        <br />
-        <br />
-        voluptatum quo ea eveniet? Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Ducimus quae dolor, optio voluptatibus magnam iure
-        esse tempora beatae, a suscipit eos. Animi quibusdam cum omnis officiis
-        voluptatum quo ea eveniet?
-      </div>
+      <div className={styles.bottomContent}>{post?.content}</div>
     </div>
   );
 };
