@@ -12,6 +12,20 @@ body {
   color: #eee;
 }
 
+.theme {
+  transition: 1s all ease;
+}
+
+.dark {
+  background-color: #000;
+  color: #eee;
+}
+
+.light {
+  color: #111;
+  background-color: white;
+}
+
 a {
   text-decoration: none;
   color: inherit;

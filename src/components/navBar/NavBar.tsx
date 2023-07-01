@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import {links} from './links';
 import styles from './NavBar.module.css';
+import {DarkModeToggle} from '../darkModeToggle/DarkModeToggle';
 
 function NavBar() {
   return (
@@ -10,6 +11,7 @@ function NavBar() {
         Demopedia
       </Link>
       <div className={styles.links}>
+        <DarkModeToggle />
         {links.map((link) => (
           <Link key={link.id} href={link.url} className={styles.link}>
             {link.title}
