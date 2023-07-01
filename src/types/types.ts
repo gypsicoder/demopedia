@@ -6,3 +6,10 @@ export type BlogPost = {
   title: string;
   body: string;
 };
+
+export interface IPortfolioItem {
+  id: number;
+  title: string;
+  desc: string;
+  image: string;
+}
