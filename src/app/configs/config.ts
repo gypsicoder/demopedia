@@ -1,1 +1,1 @@
-export const API_END_POINT = 'http://localhost:3000/api';
+export const API_END_POINT = 'https://jocular-cendol-4a4ead.netlify.app/api';
