@@ -19,3 +19,12 @@
 
 .link {
 }
+
+.logout {
+  padding: 5px;
+  border: none;
+  background-color: olivedrab;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
