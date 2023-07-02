@@ -37,7 +37,7 @@ export async function generateMetadata(
 }
 
 const BlogPost = async ({params, searchParams}: Props) => {
-  const post = await getPost(params.id);
+  const post: IPost = await getPost(params.id);
 
   return (
     <div className={styles.container}>
@@ -48,12 +48,12 @@ const BlogPost = async ({params, searchParams}: Props) => {
           <div className={styles.userInfo}>
             <Image
               alt=''
-              src={'https://randomuser.me/api/portraits/women/13.jpg'}
+              src={post?.image}
               width={40}
               height={40}
               className={styles.userAvatar}
             />
-            <span className={styles.userName}>Gessy Catherine</span>
+            <span className={styles.userName}>{post?.username}</span>
           </div>
         </div>
         <div className={styles.imageContainer}>
