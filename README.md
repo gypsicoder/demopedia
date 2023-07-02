@@ -1,3 +1,9 @@
+# Demo is live [here](https://demopedia.netlify.app/)
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5353cedc-f817-48f2-bbfa-e06935d5f900/deploy-status)](https://app.netlify.com/sites/demopedia/deploys?branch=main)
+
+![Demopedia](https://page2images.b-cdn.net/ccimages/35/86/GyXLp0fNkZEmiDnC.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
