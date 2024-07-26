@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Hero from 'public/hero.png';
 import styles from './page.module.css';
 import UrlButton from '@/components/urlButton/UrlButton';
 
@@ -17,7 +16,7 @@ export default function Home() {
         <UrlButton text='See Our Works' url='/portfolio' />
       </div>
       <div className={styles.item}>
-        <Image src={Hero} alt='Hero' className={styles.heroImage} />
+        <Image width={1000} height={1000} src={'/hero.png'} alt='Hero' className={styles.heroImage} />
       </div>
     </div>
   );
