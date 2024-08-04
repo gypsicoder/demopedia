@@ -19,7 +19,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       <body className={inter.className}>
         <ThemeProvider>
           <AuthProvider>
-            <div className='container'>
+            <div className='max-w-[1366px] min-h-screen mx-auto px-[60px] flex flex-col justify-between'>
               <NavBar />
               {children}
               <Footer />

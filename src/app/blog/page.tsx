@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './page.module.css';
 import {notFound} from 'next/navigation';
 import {BlogPostCompact} from '@/components/blogPostCompact/BlogPostCompact';
 import {IPost} from '@/types/types';
@@ -20,7 +19,7 @@ const Blog = async () => {
   const posts: IPost[] = await getPosts();
 
   return (
-    <div className={styles.container}>
+    <div className='flex flex-col gap-[30px]'>
       {posts?.map((post) => {
         return <BlogPostCompact key={post._id} blogPost={post} />;
       })}

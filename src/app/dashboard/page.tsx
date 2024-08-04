@@ -4,7 +4,6 @@ import {useRouter} from 'next/navigation';
 import React, {FormEvent} from 'react';
 import useSWR from 'swr';
 import {API_END_POINT} from '../configs/config';
-import styles from './page.module.css';
 import Image from 'next/image';
 import {IPost} from '@/types/types';
 
@@ -71,18 +70,18 @@ const Dashboard = () => {
 
   if (session.status === 'authenticated') {
     return (
-      <div className={styles.container}>
-        <div className={styles.posts}>
+      <div className='flex gap-[100px]'>
+        <div className='flex-1'>
           {isLoading
             ? 'loading'
             : data?.map((post: IPost) => (
-                <div className={styles.post} key={post._id}>
-                  <div className={styles.imgContainer}>
+                <div className='flex items-center justify-between my-[50px]' key={post._id}>
+                  <div className='w-[200px] h-[100px] relative'>
                     <Image src={post.image} alt='' width={200} height={100} />
                   </div>
-                  <h2 className={styles.postTitle}>{post.title}</h2>
+                  <h2>{post.title}</h2>
                   <span
-                    className={styles.delete}
+                    className='cursor-pointer text-red-500'
                     onClick={() => handleDelete(post._id)}
                   >
                     X
@@ -90,18 +89,18 @@ const Dashboard = () => {
                 </div>
               ))}
         </div>
-        <form className={styles.new} onSubmit={handleSubmit}>
+        <form className='flex flex-1 flex-col gap[20px]' onSubmit={handleSubmit}>
           <h1>Add New Post</h1>
-          <input type='text' placeholder='Title' className={styles.input} />
-          <input type='text' placeholder='Desc' className={styles.input} />
-          <input type='text' placeholder='Image' className={styles.input} />
+          <input type='text' placeholder='Title' className='p-[10px] bg-transparent border-[2px] border-[#bbb] rounded-[3px] text-[#bbb] text-[20px] font-bold' />
+          <input type='text' placeholder='Desc' className='p-[10px] bg-transparent border-[2px] border-[#bbb] rounded-[3px] text-[#bbb] text-[20px] font-bold' />
+          <input type='text' placeholder='Image' className='p-[10px] bg-transparent border-[2px] border-[#bbb] rounded-[3px] text-[#bbb] text-[20px] font-bold' />
           <textarea
             placeholder='Content'
-            className={styles.textArea}
+            className='p-[10px] bg-transparent border-[2px] border-[#bbb] rounded-[3px] text-[#bbb] text-[20px] font-bold'
             cols={30}
             rows={10}
           ></textarea>
-          <button className={styles.button}>Send</button>
+          <button className='p-[20px] cursor-pointer bg-olivedrab border-none rounded-[5px] text-[#eee] font-bold'>Send</button>
         </form>
       </div>
     );

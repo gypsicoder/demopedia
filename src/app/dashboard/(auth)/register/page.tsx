@@ -1,7 +1,6 @@
 'use client';
 import React, {FormEvent, useState} from 'react';
 
-import styles from './page.module.css';
 import Link from 'next/link';
 import {API_END_POINT} from '@/app/configs/config';
 import {useRouter} from 'next/navigation';
@@ -40,27 +39,27 @@ const Register = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+    <div className='flex flex-col gap-[20px] justify-center items-center'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-[20px] w-[300px]'>
         <input
           type='text'
           placeholder='Username'
-          className={styles.input}
+          className='p-[10px] bg-transparent border-[2px] border-[#ccc] rounded-[5px] text-[#bbb] text-[20px] font-bold'
           required
         />
         <input
           type='email'
           placeholder='Email'
-          className={styles.input}
+          className='p-[10px] bg-transparent border-[2px] border-[#ccc] rounded-[5px] text-[#bbb] text-[20px] font-bold'
           required
         />
         <input
           type='password'
           placeholder='Password'
-          className={styles.input}
+          className='p-[10px] bg-transparent border-[2px] border-[#ccc] rounded-[5px] text-[#bbb] text-[20px] font-bold'
           required
         />
-        <button className={styles.button}>Register</button>
+        <button className='w-[300px] p-[20px] border-none rounded-[5px] cursor-pointer bg-olivedrab hover:bg-[#49b07d] text-[#fff] font-bold bg-[rgba(228,97,50,0.72)] hover:bg-[rgba(228, 97, 50, 0.803)]'>Register</button>
         {error && 'Something went wrong!'}
       </form>
       <Link href={'/dashboard/login'}>Login with existing account</Link>
