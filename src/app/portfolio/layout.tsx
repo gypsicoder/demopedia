@@ -1,10 +1,9 @@
 import React from 'react';
-import styles from './page.module.css';
 
 function Layout({children}: {children: React.ReactNode}) {
   return (
     <div>
-      <h1 className={styles.title}>Our works</h1>
+      <h1 className='text-5xl mb-[20px]'>Our works</h1>
       {children}
     </div>
   );

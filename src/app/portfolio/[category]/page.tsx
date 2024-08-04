@@ -2,7 +2,6 @@ import React from 'react';
 import {notFound} from 'next/navigation';
 import {Metadata, ResolvingMetadata} from 'next';
 
-import styles from './page.module.css';
 import {items} from './data';
 import {PortfolioItem} from '@/components/portfolioItem/PortfolioItem';
 import {IPortfolioItem} from '@/types/types';
@@ -33,8 +32,8 @@ const Category = async ({params}: Props) => {
   const data = getData(params.category);
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.categoryTitle}>{params.category || 'Unknown'}</h1>
+    <div className='flex flex-col'>
+      <h1 className='text-5xl bg-olivedrab'>{params.category || 'Unknown'}</h1>
       {data.map((portfolioItem: IPortfolioItem) => {
         return (
           <PortfolioItem item={portfolioItem} key={`${portfolioItem.id}`} />

@@ -4,8 +4,6 @@ import {signIn, useSession} from 'next-auth/react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import Link from 'next/link';
 
-import styles from './page.module.css';
-
 const Login = () => {
   const session = useSession();
   const router = useRouter();
@@ -35,35 +33,35 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.container}>
-        <h1 className={styles.title}>{success ? success : 'Welcome Back'}</h1>
-        <h2 className={styles.subtitle}>Please sign in to see the dashboard.</h2>
-        <form onSubmit={handleSubmit} className={styles.form}>
+    <div className='flex flex-col justify-center items-center gap-[20px]'>
+        <h1 className='text-[#bbb]'>{success ? success : 'Welcome Back'}</h1>
+        <h2 className='text-[20px] mb-[30px] text-[#bbb]'>Please sign in to see the dashboard.</h2>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-[20px] w-[300px]'>
           <input
             type='email'
             placeholder='Email'
-            className={styles.input}
+            className='p-[10px] bg-transparent border-[2px] border-[#ccc] rounded-[5px] text-[#bbb] text-[20px] font-bold'
             required
           />
           <input
             type='password'
             placeholder='Password'
-            className={styles.input}
+            className='p-[10px] bg-transparent border-[2px] border-[#ccc] rounded-[5px] text-[#bbb] text-[20px] font-bold'
             required
           />
-          <button className={styles.button}>Login</button>
+          <button className='w-[300px] p-[20px] border-none rounded-[5px] cursor-pointer bg-olivedrab hover:bg-[#49b07d] text-[#fff] font-bold'>Login</button>
           {error && error}
         </form>
         <button
           onClick={() => {
             signIn('google');
           }}
-          className={styles.button + ' ' + styles.google}
+          className='w-[300px] p-[20px] border-none rounded-[5px] cursor-pointer bg-olivedrab hover:bg-[#49b07d] text-[#fff] font-bold bg-[rgba(228,97,50,0.72)] hover:bg-[rgba(228, 97, 50, 0.803)]'
         >
           Login with Google
         </button>
-        <span className={styles.or}>- OR -</span>
-        <Link className={styles.link} href='/dashboard/register'>
+        <span className='text-[#bbb]'>- OR -</span>
+        <Link className='underline text-[#7d7c7c] hover:text-[rgb(61, 61, 61)]' href='/dashboard/register'>
           Create new account
         </Link>
       </div>

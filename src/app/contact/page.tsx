@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './page.module.css';
 import Image from 'next/image';
 import UrlButton from '@/components/urlButton/UrlButton';
 
@@ -11,22 +10,22 @@ export const metadata = {
 
 function Contact() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>{"Let's Keep in Touch"}</h1>
-      <div className={styles.content}>
-        <div className={styles.imageContainer}>
+    <div>
+      <h1 className='text-5xl text-center mb-[50px]'>{"Let's Keep in Touch"}</h1>
+      <div className='flex items-center gap-[100px]'>
+        <div className='flex-1 relative h-[450px]'>
           <Image
             src={'/contact.png'}
             fill={true}
             alt=''
-            className={styles.image}
+            className='object-contain contact-image-animation'
           />
         </div>
-        <form action='' className={styles.form}>
-          <input type='text' className={styles.textInput} placeholder='Name' />
+        <form action='' className='flex flex-1 flex-col gap-[20px]'>
+          <input type='text' className='p-[20px] bg-transparent outline-none text-[#ccc] border-[3px] border-[#ccc] text-[20px] font-bold' placeholder='Name' />
           <input
             type='email'
-            className={styles.textInput}
+            className='p-[20px] bg-transparent outline-none text-[#ccc] border-[3px] border-[#ccc] text-[20px] font-bold'
             placeholder='Email'
           />
           <textarea
@@ -35,7 +34,7 @@ function Contact() {
             placeholder='Message'
             cols={30}
             rows={10}
-            className={styles.textArea}
+            className='p-[20px] bg-transparent outline-none text-[#ccc] border-[3px] border-[#ccc] text-[20px] font-bold'
           ></textarea>
           <UrlButton url='#' text='Send' />
         </form>

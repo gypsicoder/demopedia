@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -10,6 +14,11 @@ body {
   overflow-x: hidden;
   background-color: #000;
   color: #eee;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .theme {
@@ -26,17 +35,34 @@ body {
   background-color: white;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+.title-background-gradient {
+  background: linear-gradient(to bottom, olivedrab, #ccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.container {
-  max-width: 1366px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 0 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+@keyframes hero-image-move {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(10px);
+  }
+}
+
+.hero-image-animation {
+  animation: hero-image-move 3s infinite ease alternate;
+}
+
+@keyframes contact-image-animation-move {
+  from {
+    transform: translateY(-15px);
+  }
+  to {
+    transform: translateY(0px) scale(1.03);
+  }
+}
+
+.contact-image-animation {
+  animation: contact-image-animation-move 3s infinite ease alternate;
 }
